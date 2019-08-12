@@ -40,6 +40,6 @@ margin_right = 748.212
 margin_bottom = 674.321
 rect_scale = Vector2( 0.8, 0.8 )
 custom_fonts/font = ExtResource( 3 )
-text = "Start"
+text = "Ok"
 
 [connection signal="pressed" from="Start" to="." method="_on_Start_pressed"]

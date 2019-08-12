@@ -1,8 +1,6 @@
 extends TextureRect
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
+signal story_closed
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -13,6 +11,8 @@ func set_title(txt):
 
 func set_text(txt):
 	get_node("Text").text = txt
+	
 
 func _on_Start_pressed():
+	emit_signal("story_closed")
 	hide()

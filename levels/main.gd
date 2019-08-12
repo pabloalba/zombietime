@@ -11,6 +11,7 @@ const tiles_can_move_down = [1,2,3,4,5,6,7,8,9,10,11,12,13,17,18,19,20,21,22,23,
 const MODE_PLAYER_ACTION = 1
 const MODE_PLAYER_ANIMATION = 2
 const MODE_ZOMBIE_TIME = 3
+const MODE_END = 4
 
 const ACTION_WALK = 0
 const ACTION_ATTACK = 1
@@ -50,6 +51,8 @@ func _ready():
 	
 	get_node("HUD/SearchScreen").connect("take_item", self, "take_item")
 	get_node("HUD/SearchScreen").connect("discard_item", self, "discard_item")
+	
+	get_node("HUD/StoryScreen").connect("story_closed", self, "story_closed")
 	reset_map()
 	
 func reset_map():
@@ -124,12 +127,41 @@ func _process(delta):
 func finish_action():
 	hero.num_actions -= 1
 	actions[2 - hero.num_actions].disable()	
-	_update_search_button()		
-	if (hero.num_actions == 0):
-		zombie_time()
+	_update_search_button()
+	var is_end_game = check_end_game()
+	if not is_end_game:
+		if (hero.num_actions == 0):
+			zombie_time()
+		else:
+			mode = MODE_PLAYER_ACTION
+			draw_valid_squares()
+
+func check_end_game():
+	var is_dead = check_death()
+	if is_dead:
+		get_node("HUD/StoryScreen").set_title("GAME OVER")
+		get_node("HUD/StoryScreen").set_text(globals.gameover_text)
+		get_node("HUD/StoryScreen").show()		
+		mode = MODE_END
+		return true
 	else:
-		mode = MODE_PLAYER_ACTION
-		draw_valid_squares()
+		var is_victory = check_victory()
+		if is_victory:
+			get_node("HUD/StoryScreen").set_title(map.victory_title)
+			get_node("HUD/StoryScreen").set_text(map.victory_text)
+			get_node("HUD/StoryScreen").show()
+			mode = MODE_END
+			globals.savegame.current_level += 1
+			return true
+		else:
+			return false
+		
+	
+func check_death():
+	return (hero.lives <= 0)
+	
+func check_victory():
+	return map.victory_condition.position.x == hero.square.x and map.victory_condition.position.y == hero.square.y
 
 func new_turn():
 	mode = MODE_PLAYER_ACTION
@@ -143,7 +175,9 @@ func new_turn():
 func end_zombie_time():
 	join_zombies()
 	get_node("HUD/LabelZombieTime").hide()
-	new_turn()
+	var is_end_game = check_end_game()
+	if not is_end_game:
+		new_turn()
 	
 func join_zombies():
 	var remove_zombies = []
@@ -537,3 +571,8 @@ func discard_item():
 			search_points.erase(search_point)
 			break
 	_update_search_button()
+	
+func story_closed():
+	if mode == MODE_END:
+		get_tree().change_scene("res://MainMenu.tscn")
+	

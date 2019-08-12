@@ -14,6 +14,15 @@ to break the door! The zombies are here!
 It's Zombie Time!
 """
 
+var victory_title = "Chapter 0: Victory!"
+var victory_text = """
+Ok, Iḿ'm alive... for now.
+"""
+
+var victory_condition = {
+	"position": Vector2(2, 2),
+	"items": []
+}
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

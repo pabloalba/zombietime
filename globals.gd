@@ -141,4 +141,10 @@ var savegame = {
 	"current_level": 0,
 	"heroes_enabled": [true, false, false, false, false, false]
 }
+
+var gameover_text = """
+Your adventure finish here...
+But maybe there are more survivors to
+continue the fight!
+"""
 	
