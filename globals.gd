@@ -138,6 +138,7 @@ var items_available = [
 ]
 
 var savegame = {
+	"current_level": 0,
 	"heroes_enabled": [true, false, false, false, false, false]
-	}
+}
 	

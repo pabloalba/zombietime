@@ -54,7 +54,8 @@ func _ready():
 	
 func reset_map():
 	inventory_screen.empty()
-	map = load("res://levels/level0.tscn").instance()
+	
+	map = load("res://levels/level" + str(globals.savegame.current_level) + ".tscn").instance()
 	add_child(map)
 	
 	zombies = []
