@@ -1,0 +1,78 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://assets/img/play/hud/search_screen.png" type="Texture" id=1]
+[ext_resource path="res://SearchScreen.gd" type="Script" id=2]
+[ext_resource path="res://assets/img/play/hud/close.png" type="Texture" id=3]
+[ext_resource path="res://Font48.tres" type="DynamicFont" id=4]
+[ext_resource path="res://Item.tscn" type="PackedScene" id=5]
+
+[node name="SearchScreen" type="TextureRect"]
+margin_top = 2.78949
+margin_right = 1280.0
+margin_bottom = 722.789
+texture = ExtResource( 1 )
+script = ExtResource( 2 )
+
+[node name="Button" type="Button" parent="."]
+margin_left = 1168.0
+margin_top = 2.0
+margin_right = 1280.0
+margin_bottom = 108.0
+icon = ExtResource( 3 )
+flat = true
+
+[node name="Label" type="Label" parent="."]
+margin_left = 122.0
+margin_top = 37.0
+margin_right = 1414.0
+margin_bottom = 88.0
+rect_scale = Vector2( 0.8, 0.8 )
+custom_fonts/font = ExtResource( 4 )
+custom_colors/font_color = Color( 0.501961, 0, 0, 1 )
+text = "you have found:"
+align = 1
+
+[node name="Title" type="Label" parent="."]
+margin_left = 460.0
+margin_top = 287.0
+margin_right = 797.0
+margin_bottom = 357.0
+custom_fonts/font = ExtResource( 4 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+align = 1
+valign = 1
+
+[node name="Description" type="Label" parent="."]
+margin_left = 460.0
+margin_top = 396.0
+margin_right = 1022.0
+margin_bottom = 696.0
+rect_scale = Vector2( 0.6, 0.6 )
+custom_fonts/font = ExtResource( 4 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+align = 1
+valign = 1
+
+[node name="Take" type="Button" parent="."]
+margin_left = 433.117
+margin_top = 610.0
+margin_right = 613.117
+margin_bottom = 674.0
+rect_scale = Vector2( 0.8, 0.8 )
+custom_fonts/font = ExtResource( 4 )
+text = "Take"
+
+[node name="Discard" type="Button" parent="."]
+margin_left = 682.0
+margin_top = 610.0
+margin_right = 862.0
+margin_bottom = 607.903
+rect_scale = Vector2( 0.8, 0.8 )
+custom_fonts/font = ExtResource( 4 )
+text = "Discard"
+
+[node name="Item" parent="." instance=ExtResource( 5 )]
+
+[connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
+[connection signal="pressed" from="Take" to="." method="_on_Take_pressed"]
+[connection signal="pressed" from="Discard" to="." method="_on_Discard_pressed"]

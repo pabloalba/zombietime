@@ -1,0 +1,247 @@
+[gd_scene load_steps=21 format=2]
+
+[ext_resource path="res://levels/main.gd" type="Script" id=1]
+[ext_resource path="res://Hero.tscn" type="PackedScene" id=2]
+[ext_resource path="res://assets/img/play/green_square.png" type="Texture" id=3]
+[ext_resource path="res://assets/img/play/hud/background.png" type="Texture" id=4]
+[ext_resource path="res://Armor.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Life.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Action.tscn" type="PackedScene" id=7]
+[ext_resource path="res://assets/img/play/hud/walk.png" type="Texture" id=8]
+[ext_resource path="res://assets/img/play/hud/walk_selected.png" type="Texture" id=9]
+[ext_resource path="res://assets/img/play/hud/weapon.png" type="Texture" id=10]
+[ext_resource path="res://assets/img/play/hud/weapon_selected.png" type="Texture" id=11]
+[ext_resource path="res://assets/img/play/hud/items/pow.png" type="Texture" id=12]
+[ext_resource path="res://Font48.tres" type="DynamicFont" id=13]
+[ext_resource path="res://assets/img/play/hud/search.png" type="Texture" id=14]
+[ext_resource path="res://assets/img/play/hud/search_selected.png" type="Texture" id=15]
+[ext_resource path="res://assets/img/play/hud/search_disabled.png" type="Texture" id=16]
+[ext_resource path="res://assets/img/play/hud/inventory.png" type="Texture" id=17]
+[ext_resource path="res://Font96.tres" type="DynamicFont" id=18]
+[ext_resource path="res://InventoryScreen.tscn" type="PackedScene" id=19]
+[ext_resource path="res://SearchScreen.tscn" type="PackedScene" id=20]
+
+[node name="main" type="Container"]
+margin_right = 40.0
+margin_bottom = 40.0
+script = ExtResource( 1 )
+
+[node name="Hero" parent="." instance=ExtResource( 2 )]
+editor/display_folded = true
+z_index = 10
+
+[node name="Camera2D" type="Camera2D" parent="Hero"]
+offset = Vector2( -1000, -500 )
+anchor_mode = 0
+current = true
+zoom = Vector2( 1.5, 1.5 )
+
+[node name="canMoveStay" type="TextureRect" parent="Hero"]
+visible = false
+margin_left = -64.0
+margin_top = -64.0
+margin_right = 192.0
+margin_bottom = 192.0
+texture = ExtResource( 3 )
+
+[node name="canMoveStay2" type="TextureRect" parent="Hero"]
+visible = false
+margin_left = -64.0
+margin_top = 64.0
+margin_right = 192.0
+margin_bottom = 320.0
+texture = ExtResource( 3 )
+
+[node name="canMoveUp" type="TextureRect" parent="Hero"]
+visible = false
+margin_left = -64.0
+margin_top = -320.0
+margin_right = 192.0
+margin_bottom = -64.0
+texture = ExtResource( 3 )
+
+[node name="canMoveDown" type="TextureRect" parent="Hero"]
+visible = false
+margin_left = -64.0
+margin_top = 192.0
+margin_right = 192.0
+margin_bottom = 448.0
+texture = ExtResource( 3 )
+
+[node name="canMoveLeft" type="TextureRect" parent="Hero"]
+visible = false
+margin_left = -320.0
+margin_top = -64.0
+margin_right = -64.0
+margin_bottom = 192.0
+texture = ExtResource( 3 )
+
+[node name="canMoveRight" type="TextureRect" parent="Hero"]
+visible = false
+margin_left = 192.0
+margin_top = -64.0
+margin_right = 448.0
+margin_bottom = 192.0
+texture = ExtResource( 3 )
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="TextureRect" type="TextureRect" parent="HUD"]
+margin_right = 150.0
+margin_bottom = 720.0
+texture = ExtResource( 4 )
+
+[node name="ArmorContainer" type="HBoxContainer" parent="HUD"]
+margin_top = 50.0
+margin_right = 145.0
+margin_bottom = 100.0
+alignment = 1
+
+[node name="Armor1" parent="HUD/ArmorContainer" instance=ExtResource( 5 )]
+margin_left = 8.0
+margin_right = 48.0
+margin_bottom = 50.0
+
+[node name="Armor2" parent="HUD/ArmorContainer" instance=ExtResource( 5 )]
+margin_left = 52.0
+margin_right = 92.0
+margin_bottom = 50.0
+
+[node name="Armor3" parent="HUD/ArmorContainer" instance=ExtResource( 5 )]
+margin_left = 96.0
+margin_right = 136.0
+margin_bottom = 50.0
+
+[node name="Life1" parent="HUD" instance=ExtResource( 6 )]
+margin_left = 2.0
+margin_top = 10.0
+margin_right = 42.0
+margin_bottom = 50.0
+
+[node name="Life2" parent="HUD" instance=ExtResource( 6 )]
+margin_left = 50.0
+margin_top = 10.0
+margin_right = 90.0
+margin_bottom = 50.0
+
+[node name="Life3" parent="HUD" instance=ExtResource( 6 )]
+margin_left = 100.0
+margin_top = 10.0
+margin_right = 140.0
+margin_bottom = 50.0
+
+[node name="action1" parent="HUD" instance=ExtResource( 7 )]
+margin_left = 25.0
+margin_top = 106.0
+margin_right = 75.0
+margin_bottom = 156.0
+rect_scale = Vector2( 0.6, 0.6 )
+
+[node name="action2" parent="HUD" instance=ExtResource( 7 )]
+margin_left = 58.0
+margin_top = 106.0
+margin_right = 108.0
+margin_bottom = 156.0
+rect_scale = Vector2( 0.6, 0.6 )
+
+[node name="action3" parent="HUD" instance=ExtResource( 7 )]
+margin_left = 92.0
+margin_top = 106.0
+margin_right = 142.0
+margin_bottom = 156.0
+rect_scale = Vector2( 0.6, 0.6 )
+
+[node name="WalkButton" type="TextureButton" parent="HUD"]
+margin_left = 17.0
+margin_top = 171.0
+margin_right = 131.0
+margin_bottom = 285.0
+texture_normal = ExtResource( 8 )
+texture_disabled = ExtResource( 9 )
+
+[node name="AttackButton" type="TextureButton" parent="HUD"]
+margin_left = 17.0
+margin_top = 301.0
+margin_right = 131.0
+margin_bottom = 415.0
+texture_normal = ExtResource( 10 )
+texture_disabled = ExtResource( 11 )
+
+[node name="weapon" type="TextureRect" parent="HUD/AttackButton"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="durability" type="TextureRect" parent="HUD/AttackButton"]
+margin_left = 57.0
+margin_top = 62.0
+margin_right = 97.0
+margin_bottom = 102.0
+
+[node name="pow" type="TextureRect" parent="HUD/AttackButton"]
+margin_left = 11.0
+margin_top = 6.0
+margin_right = 51.0
+margin_bottom = 46.0
+texture = ExtResource( 12 )
+
+[node name="pow_label" type="Label" parent="HUD/AttackButton"]
+margin_left = 26.0
+margin_top = 14.0
+margin_right = 66.0
+margin_bottom = 65.0
+rect_scale = Vector2( 0.5, 0.5 )
+custom_fonts/font = ExtResource( 13 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "1"
+
+[node name="SearchButton" type="TextureButton" parent="HUD"]
+margin_left = 17.0
+margin_top = 431.0
+margin_right = 131.0
+margin_bottom = 545.0
+texture_normal = ExtResource( 14 )
+texture_pressed = ExtResource( 15 )
+texture_disabled = ExtResource( 16 )
+
+[node name="InventoryButton" type="Button" parent="HUD"]
+margin_left = 17.0
+margin_top = 577.0
+margin_right = 143.0
+margin_bottom = 697.0
+icon = ExtResource( 17 )
+flat = true
+
+[node name="LabelZombieTime" type="Label" parent="HUD"]
+visible = false
+margin_left = 440.0
+margin_top = 15.0
+margin_right = 967.0
+margin_bottom = 116.0
+custom_fonts/font = ExtResource( 18 )
+custom_colors/font_color = Color( 1, 0, 0, 1 )
+text = "Zombie Time!"
+align = 1
+valign = 1
+
+[node name="InventoryScreen" parent="HUD" instance=ExtResource( 19 )]
+visible = false
+
+[node name="SearchScreen" parent="HUD" instance=ExtResource( 20 )]
+visible = false
+
+[node name="HitIndicator" type="ColorRect" parent="HUD"]
+visible = false
+margin_right = 1280.0
+margin_bottom = 720.0
+color = Color( 1, 0, 0, 0.392157 )
+
+[connection signal="gui_input" from="Hero/canMoveStay" to="." method="_on_canMove_gui_input" binds= [ 4 ]]
+[connection signal="gui_input" from="Hero/canMoveStay2" to="." method="_on_canMove_gui_input" binds= [ 4 ]]
+[connection signal="gui_input" from="Hero/canMoveUp" to="." method="_on_canMove_gui_input" binds= [ 0 ]]
+[connection signal="gui_input" from="Hero/canMoveDown" to="." method="_on_canMove_gui_input" binds= [ 2 ]]
+[connection signal="gui_input" from="Hero/canMoveLeft" to="." method="_on_canMove_gui_input" binds= [ 3 ]]
+[connection signal="gui_input" from="Hero/canMoveRight" to="." method="_on_canMove_gui_input" binds= [ 1 ]]
+[connection signal="pressed" from="HUD/WalkButton" to="." method="_on_WalkButton_pressed"]
+[connection signal="pressed" from="HUD/AttackButton" to="." method="_on_AttackButton_pressed"]
+[connection signal="pressed" from="HUD/SearchButton" to="." method="_on_SearchButton_pressed"]
+[connection signal="pressed" from="HUD/InventoryButton" to="." method="_on_InventoryButton_pressed"]
