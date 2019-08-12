@@ -2,247 +2,99 @@
 
 [ext_resource path="res://SelectHero.gd" type="Script" id=1]
 [ext_resource path="res://Font96.tres" type="DynamicFont" id=2]
-[ext_resource path="res://assets/img/hero/hero0.png" type="Texture" id=3]
-[ext_resource path="res://assets/img/hero/hero1.png" type="Texture" id=4]
-[ext_resource path="res://assets/img/hero/hero2.png" type="Texture" id=5]
-[ext_resource path="res://assets/img/hero/hero3.png" type="Texture" id=6]
-[ext_resource path="res://assets/img/hero/hero4.png" type="Texture" id=7]
-[ext_resource path="res://assets/img/hero/hero5.png" type="Texture" id=8]
+[ext_resource path="res://assets/img/hero/hero0_disabled.png" type="Texture" id=3]
+[ext_resource path="res://assets/img/hero/hero1_disabled.png" type="Texture" id=4]
+[ext_resource path="res://assets/img/hero/hero2_disabled.png" type="Texture" id=5]
+[ext_resource path="res://assets/img/hero/hero3_disabled.png" type="Texture" id=6]
+[ext_resource path="res://assets/img/hero/hero4_disabled.png" type="Texture" id=7]
+[ext_resource path="res://assets/img/hero/hero5_disabled.png" type="Texture" id=8]
 
 [node name="SelectHero" type="ColorRect"]
-
-anchor_left = 0.0
-anchor_top = 0.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-rect_pivot_offset = Vector2( 0, 0 )
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
 color = Color( 0, 0, 0, 1 )
 script = ExtResource( 1 )
 
-[node name="MarginContainer" type="MarginContainer" parent="." index="0"]
-
-anchor_left = 0.0
-anchor_top = 0.0
+[node name="MarginContainer" type="MarginContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-rect_pivot_offset = Vector2( 0, 0 )
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
 custom_constants/margin_right = 120
 custom_constants/margin_top = 10
 custom_constants/margin_left = 120
 custom_constants/margin_bottom = 10
-_sections_unfolded = [ "custom_constants" ]
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" index="0"]
-
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 margin_left = 120.0
 margin_top = 10.0
 margin_right = 1160.0
 margin_bottom = 710.0
-rect_pivot_offset = Vector2( 0, 0 )
-mouse_filter = 1
-mouse_default_cursor_shape = 0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-alignment = 0
-_sections_unfolded = [ "Size Flags" ]
 
-[node name="CenterContainer" type="CenterContainer" parent="MarginContainer/VBoxContainer" index="0"]
-
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
+[node name="CenterContainer" type="CenterContainer" parent="MarginContainer/VBoxContainer"]
 margin_right = 1040.0
 margin_bottom = 101.0
-rect_pivot_offset = Vector2( 0, 0 )
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-use_top_left = false
-_sections_unfolded = [ "Size Flags" ]
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/CenterContainer" index="0"]
-
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/CenterContainer"]
 margin_left = 149.0
 margin_right = 891.0
 margin_bottom = 101.0
-rect_pivot_offset = Vector2( 0, 0 )
-mouse_filter = 2
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 4
 custom_fonts/font = ExtResource( 2 )
 text = "Select your hero!"
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-_sections_unfolded = [ "custom_fonts" ]
 
-[node name="CenterContainer2" type="CenterContainer" parent="MarginContainer/VBoxContainer" index="1"]
-
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
+[node name="CenterContainer2" type="CenterContainer" parent="MarginContainer/VBoxContainer"]
 margin_top = 105.0
 margin_right = 1040.0
 margin_bottom = 667.0
-rect_pivot_offset = Vector2( 0, 0 )
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-use_top_left = false
 
-[node name="GridContainer" type="GridContainer" parent="MarginContainer/VBoxContainer/CenterContainer2" index="0"]
-
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
+[node name="GridContainer" type="GridContainer" parent="MarginContainer/VBoxContainer/CenterContainer2"]
 margin_left = 36.0
 margin_right = 1004.0
 margin_bottom = 562.0
-rect_pivot_offset = Vector2( 0, 0 )
-mouse_filter = 1
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
 custom_constants/vseparation = 50
 custom_constants/hseparation = 100
 columns = 3
-_sections_unfolded = [ "Size Flags", "custom_constants" ]
 
-[node name="alex" type="TextureRect" parent="MarginContainer/VBoxContainer/CenterContainer2/GridContainer" index="0"]
-
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
+[node name="hero0" type="TextureRect" parent="MarginContainer/VBoxContainer/CenterContainer2/GridContainer"]
 margin_right = 256.0
 margin_bottom = 256.0
-rect_pivot_offset = Vector2( 0, 0 )
-mouse_filter = 1
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
 texture = ExtResource( 3 )
-stretch_mode = 0
 
-[node name="laura" type="TextureRect" parent="MarginContainer/VBoxContainer/CenterContainer2/GridContainer" index="1"]
-
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
+[node name="hero1" type="TextureRect" parent="MarginContainer/VBoxContainer/CenterContainer2/GridContainer"]
 margin_left = 356.0
 margin_right = 612.0
 margin_bottom = 256.0
-rect_pivot_offset = Vector2( 0, 0 )
-mouse_filter = 1
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
 texture = ExtResource( 4 )
-stretch_mode = 0
 
-[node name="miguel" type="TextureRect" parent="MarginContainer/VBoxContainer/CenterContainer2/GridContainer" index="2"]
-
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
+[node name="hero2" type="TextureRect" parent="MarginContainer/VBoxContainer/CenterContainer2/GridContainer"]
 margin_left = 712.0
 margin_right = 968.0
 margin_bottom = 256.0
-rect_pivot_offset = Vector2( 0, 0 )
-mouse_filter = 1
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
 texture = ExtResource( 5 )
-stretch_mode = 0
 
-[node name="pablo" type="TextureRect" parent="MarginContainer/VBoxContainer/CenterContainer2/GridContainer" index="3"]
-
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
+[node name="hero3" type="TextureRect" parent="MarginContainer/VBoxContainer/CenterContainer2/GridContainer"]
 margin_top = 306.0
 margin_right = 256.0
 margin_bottom = 562.0
-rect_pivot_offset = Vector2( 0, 0 )
-mouse_filter = 1
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
 texture = ExtResource( 6 )
-stretch_mode = 0
 
-[node name="xenia" type="TextureRect" parent="MarginContainer/VBoxContainer/CenterContainer2/GridContainer" index="4"]
-
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
+[node name="hero4" type="TextureRect" parent="MarginContainer/VBoxContainer/CenterContainer2/GridContainer"]
 margin_left = 356.0
 margin_top = 306.0
 margin_right = 612.0
 margin_bottom = 562.0
-rect_pivot_offset = Vector2( 0, 0 )
-mouse_filter = 1
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
 texture = ExtResource( 7 )
-stretch_mode = 0
 
-[node name="yami" type="TextureRect" parent="MarginContainer/VBoxContainer/CenterContainer2/GridContainer" index="5"]
-
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
+[node name="hero5" type="TextureRect" parent="MarginContainer/VBoxContainer/CenterContainer2/GridContainer"]
 margin_left = 712.0
 margin_top = 306.0
 margin_right = 968.0
 margin_bottom = 562.0
-rect_pivot_offset = Vector2( 0, 0 )
-mouse_filter = 1
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
 texture = ExtResource( 8 )
-stretch_mode = 0
 
-[connection signal="gui_input" from="MarginContainer/VBoxContainer/CenterContainer2/GridContainer/alex" to="." method="_on_hero_gui_input" binds= [ 0 ]]
-
-[connection signal="gui_input" from="MarginContainer/VBoxContainer/CenterContainer2/GridContainer/laura" to="." method="_on_hero_gui_input" binds= [ 1 ]]
-
-[connection signal="gui_input" from="MarginContainer/VBoxContainer/CenterContainer2/GridContainer/miguel" to="." method="_on_hero_gui_input" binds= [ 2 ]]
-
-[connection signal="gui_input" from="MarginContainer/VBoxContainer/CenterContainer2/GridContainer/pablo" to="." method="_on_hero_gui_input" binds= [ 3 ]]
-
-[connection signal="gui_input" from="MarginContainer/VBoxContainer/CenterContainer2/GridContainer/xenia" to="." method="_on_hero_gui_input" binds= [ 4 ]]
-
-[connection signal="gui_input" from="MarginContainer/VBoxContainer/CenterContainer2/GridContainer/yami" to="." method="_on_hero_gui_input" binds= [ 5 ]]
-
-
+[connection signal="gui_input" from="MarginContainer/VBoxContainer/CenterContainer2/GridContainer/hero0" to="." method="_on_hero_gui_input" binds= [ 0 ]]
+[connection signal="gui_input" from="MarginContainer/VBoxContainer/CenterContainer2/GridContainer/hero1" to="." method="_on_hero_gui_input" binds= [ 1 ]]
+[connection signal="gui_input" from="MarginContainer/VBoxContainer/CenterContainer2/GridContainer/hero2" to="." method="_on_hero_gui_input" binds= [ 2 ]]
+[connection signal="gui_input" from="MarginContainer/VBoxContainer/CenterContainer2/GridContainer/hero3" to="." method="_on_hero_gui_input" binds= [ 3 ]]
+[connection signal="gui_input" from="MarginContainer/VBoxContainer/CenterContainer2/GridContainer/hero4" to="." method="_on_hero_gui_input" binds= [ 4 ]]
+[connection signal="gui_input" from="MarginContainer/VBoxContainer/CenterContainer2/GridContainer/hero5" to="." method="_on_hero_gui_input" binds= [ 5 ]]

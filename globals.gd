@@ -26,6 +26,7 @@ const TILE_ZOMBIE_3 = 338
 const TILE_KNIFE = 326
 
 
+
 var texture_blunt = [
 	null,
 	preload("res://assets/img/play/hud/items/blunt1.png"),
@@ -135,3 +136,8 @@ var items_available = [
 		"subtype": SUBTYPE_BLUNT
 	}
 ]
+
+var savegame = {
+	"heroes_enabled": [true, false, false, false, false, false]
+	}
+	
