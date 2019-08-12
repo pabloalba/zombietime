@@ -44,7 +44,7 @@ var spawn_points = []
 var search_points = []
 
 func _ready():
-	inventory_screen = get_node("HUD/InventoryScreen")
+	inventory_screen = get_node("HUD/InventoryScreen")	
 	inventory_screen.main_scene = self
 	actions = [get_node("HUD/action1"), get_node("HUD/action2"), get_node("HUD/action3")]
 	
@@ -57,6 +57,8 @@ func reset_map():
 	
 	map = load("res://levels/level" + str(globals.savegame.current_level) + ".tscn").instance()
 	add_child(map)
+	get_node("HUD/StoryScreen").set_title(map.story_title)
+	get_node("HUD/StoryScreen").set_text(map.story_text)
 	
 	zombies = []
 	spawn_points = []

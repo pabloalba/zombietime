@@ -1,0 +1,45 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://assets/img/play/hud/story_screen.png" type="Texture" id=1]
+[ext_resource path="res://StoryScreen.gd" type="Script" id=2]
+[ext_resource path="res://Font48.tres" type="DynamicFont" id=3]
+
+[node name="SearchScreen" type="TextureRect"]
+margin_top = 2.78949
+margin_right = 1280.0
+margin_bottom = 722.789
+texture = ExtResource( 1 )
+script = ExtResource( 2 )
+
+[node name="Title" type="Label" parent="."]
+margin_left = 122.0
+margin_top = 37.0
+margin_right = 1414.0
+margin_bottom = 88.0
+rect_scale = Vector2( 0.8, 0.8 )
+custom_fonts/font = ExtResource( 3 )
+custom_colors/font_color = Color( 0.501961, 0, 0, 1 )
+text = "chapter 1"
+align = 1
+
+[node name="Text" type="Label" parent="."]
+margin_left = 262.0
+margin_top = 165.0
+margin_right = 1524.0
+margin_bottom = 832.0
+rect_scale = Vector2( 0.6, 0.6 )
+custom_fonts/font = ExtResource( 3 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+align = 1
+valign = 1
+
+[node name="Start" type="Button" parent="."]
+margin_left = 568.212
+margin_top = 610.321
+margin_right = 748.212
+margin_bottom = 674.321
+rect_scale = Vector2( 0.8, 0.8 )
+custom_fonts/font = ExtResource( 3 )
+text = "Start"
+
+[connection signal="pressed" from="Start" to="." method="_on_Start_pressed"]

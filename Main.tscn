@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://levels/main.gd" type="Script" id=1]
 [ext_resource path="res://Hero.tscn" type="PackedScene" id=2]
@@ -20,6 +20,8 @@
 [ext_resource path="res://Font96.tres" type="DynamicFont" id=18]
 [ext_resource path="res://InventoryScreen.tscn" type="PackedScene" id=19]
 [ext_resource path="res://SearchScreen.tscn" type="PackedScene" id=20]
+[ext_resource path="res://StoryScreen.tscn" type="PackedScene" id=21]
+[ext_resource path="res://Tutorial.tscn" type="PackedScene" id=22]
 
 [node name="main" type="Container"]
 margin_right = 40.0
@@ -234,6 +236,11 @@ visible = false
 margin_right = 1280.0
 margin_bottom = 720.0
 color = Color( 1, 0, 0, 0.392157 )
+
+[node name="StoryScreen" parent="HUD" instance=ExtResource( 21 )]
+
+[node name="Tutorial" parent="HUD" instance=ExtResource( 22 )]
+visible = false
 
 [connection signal="gui_input" from="Hero/canMoveStay" to="." method="_on_canMove_gui_input" binds= [ 4 ]]
 [connection signal="gui_input" from="Hero/canMoveStay2" to="." method="_on_canMove_gui_input" binds= [ 4 ]]
