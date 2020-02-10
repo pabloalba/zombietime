@@ -88,7 +88,6 @@ margin_top = 142.0
 margin_right = 275.0
 margin_bottom = 398.0
 texture = ExtResource( 4 )
-
 [connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/MenuOptions/continue" to="." method="_on_continue_pressed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/MenuOptions/new_game" to="." method="_on_new_game_pressed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/MenuOptions/options" to="." method="_on_options_pressed"]

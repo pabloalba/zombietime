@@ -12,6 +12,9 @@ script = ExtResource( 1 )
 margin_right = 12.0
 margin_bottom = 20.0
 flat = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Power" type="TextureRect" parent="."]
 visible = false
@@ -62,5 +65,4 @@ margin_left = 85.0
 margin_top = 80.0
 margin_right = 125.0
 margin_bottom = 120.0
-
 [connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]

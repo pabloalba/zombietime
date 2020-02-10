@@ -7,6 +7,7 @@ var durability
 var weapon_range
 var type
 var subtype
+var num
 
 var parent
 
@@ -25,8 +26,9 @@ func _on_Button_pressed():
 	parent.item_pressed(self)
 	
 func initialize(item_num):
-	print(item_num)
+	print(item_num)	
 	get_node("Button").set_button_icon(globals.items_available[item_num]["texture"])	
+	num = item_num
 	title = globals.items_available[item_num]["title"]
 	description = globals.items_available[item_num]["description"]
 	power = globals.items_available[item_num]["power"]

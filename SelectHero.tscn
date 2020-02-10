@@ -91,7 +91,6 @@ margin_top = 306.0
 margin_right = 968.0
 margin_bottom = 562.0
 texture = ExtResource( 8 )
-
 [connection signal="gui_input" from="MarginContainer/VBoxContainer/CenterContainer2/GridContainer/hero0" to="." method="_on_hero_gui_input" binds= [ 0 ]]
 [connection signal="gui_input" from="MarginContainer/VBoxContainer/CenterContainer2/GridContainer/hero1" to="." method="_on_hero_gui_input" binds= [ 1 ]]
 [connection signal="gui_input" from="MarginContainer/VBoxContainer/CenterContainer2/GridContainer/hero2" to="." method="_on_hero_gui_input" binds= [ 2 ]]

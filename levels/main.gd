@@ -47,8 +47,7 @@ var search_points = []
 func _ready():
 	inventory_screen = get_node("HUD/InventoryScreen")	
 	inventory_screen.main_scene = self
-	actions = [get_node("HUD/action1"), get_node("HUD/action2"), get_node("HUD/action3")]
-	
+		
 	get_node("HUD/SearchScreen").connect("take_item", self, "take_item")
 	get_node("HUD/SearchScreen").connect("discard_item", self, "discard_item")
 	
@@ -85,6 +84,8 @@ func reset_map():
 	hero.connect("atack_end", self, "player_atack_end")
 	hero.lives = 3
 	update_lives()
+	
+	get_node("HUD/Bg/LabelName").text = globals.hero_names[globals.hero]
 
 	var characters = map.get_node("characters")
 	for tile in characters.get_used_cells():
@@ -126,7 +127,7 @@ func _process(delta):
 					
 func finish_action():
 	hero.num_actions -= 1
-	actions[2 - hero.num_actions].disable()	
+	get_node("HUD/Bg/LabelActions").text = str(hero.num_actions)
 	_update_search_button()
 	var is_end_game = check_end_game()
 	if not is_end_game:
@@ -166,9 +167,7 @@ func check_victory():
 func new_turn():
 	mode = MODE_PLAYER_ACTION
 	hero.num_actions = 3
-	actions[0].enable()
-	actions[1].enable()
-	actions[2].enable()	
+	get_node("HUD/Bg/LabelActions").text = str(hero.num_actions)
 	update_lives()
 	_on_WalkButton_pressed()
 	
@@ -214,7 +213,7 @@ func add_search_point(x, y):
 				
 func draw_valid_squares():
 	if current_action == ACTION_WALK:
-		get_node("Hero/canMoveStay").show()
+		#get_node("Hero/canMoveStay").show()
 		if _can_move_up(hero.square) and get_zombies(hero.square.x, hero.square.y - 1) == []:
 			get_node("Hero/canMoveUp").show()
 		else:
@@ -236,7 +235,7 @@ func draw_valid_squares():
 			get_node("Hero/canMoveRight").hide()
 		
 func hide_all_squares():
-	get_node("Hero/canMoveStay").hide()
+	#get_node("Hero/canMoveStay").hide()
 	get_node("Hero/canMoveUp").hide()
 	get_node("Hero/canMoveDown").hide()
 	get_node("Hero/canMoveLeft").hide()
@@ -246,10 +245,8 @@ func hide_all_squares():
 func _move_hero(direction):		
 	var desired_square = Vector2(hero.square.x, hero.square.y)	
 	
-	var can_move = false
-	if direction == STAY:
-		can_move = true
-	elif direction == LEFT and _can_move_left(hero.square) and get_zombies(hero.square.x - 1, hero.square.y) == []:
+	var can_move = false	
+	if direction == LEFT and _can_move_left(hero.square) and get_zombies(hero.square.x - 1, hero.square.y) == []:
 		desired_square.x = hero.square.x -1
 		can_move = true
 	elif direction == RIGHT and _can_move_right(hero.square) and get_zombies(hero.square.x + 1, hero.square.y) == []:
@@ -310,9 +307,9 @@ func _can_move_down(vector):
 func _update_search_button():
 	var current_tile = _get_search_item()
 	if current_tile == -1:
-		get_node("HUD/SearchButton").set_disabled(true)
+		get_node("HUD/Bg/SearchButton").set_disabled(true)
 	else:
-		get_node("HUD/SearchButton").set_disabled(false)
+		get_node("HUD/Bg/SearchButton").set_disabled(false)
 		
 func _get_search_item():
 	return map.get_node("search").get_cell(hero.square.x, hero.square.y)
@@ -323,16 +320,16 @@ func update_weapon(weapon):
 	if weapon:
 		texture = weapon.get_node("Button").get_button_icon()
 		current_weapon = weapon
-		get_node("HUD/AttackButton/weapon").set_texture(texture)
-		get_node("HUD/AttackButton/durability").set_texture(weapon.get_node("Durability").get_texture())
-		get_node("HUD/AttackButton/durability").show()
+		get_node("HUD/Bg/AttackButton/weapon").set_texture(texture)
+		get_node("HUD/Bg/AttackButton/durability").set_texture(weapon.get_node("Durability").get_texture())
+		get_node("HUD/Bg/AttackButton/durability").show()
 		
-		get_node("HUD/AttackButton/pow_label").set_text(str(weapon.power))
+		get_node("HUD/Bg/AttackButton/pow_label").set_text(str(weapon.power))
 	else:
-		get_node("HUD/AttackButton/weapon").set_texture(fist_texture)
+		get_node("HUD/Bg/AttackButton/weapon").set_texture(fist_texture)
 		current_weapon = null
-		get_node("HUD/AttackButton/durability").hide()
-		get_node("HUD/AttackButton/pow_label").set_text("1")
+		get_node("HUD/Bg/AttackButton/durability").hide()
+		get_node("HUD/Bg/AttackButton/pow_label").set_text("1")
 		
 	if current_action == ACTION_ATTACK:
 		unmark_all_zombies()
@@ -343,24 +340,20 @@ func update_weapon(weapon):
 func update_armor(armor):	
 	print(armor)
 	current_armor = armor
-	get_node("HUD/ArmorContainer/Armor1").hide()
-	get_node("HUD/ArmorContainer/Armor2").hide()
-	get_node("HUD/ArmorContainer/Armor3").hide()
-	if armor != null:
-		if armor.power >= 1:
-			get_node("HUD/ArmorContainer/Armor1").show()		
-		if armor.power >= 2:
-			get_node("HUD/ArmorContainer/Armor2").show()
-			if armor.durability >=2:
-				get_node("HUD/ArmorContainer/Armor2").fill()
-			else:
-				get_node("HUD/ArmorContainer/Armor2").empty()
-		if armor.power >= 3:
-			get_node("HUD/ArmorContainer/Armor3").show()
-			if armor.durability >=2:
-				get_node("HUD/ArmorContainer/Armor3").fill()
-			else:
-				get_node("HUD/ArmorContainer/Armor3").empty()
+	get_node("HUD/Bg/ArmorContainer/Armor1").empty()
+	get_node("HUD/Bg/ArmorContainer/Armor2").empty()
+	get_node("HUD/Bg/ArmorContainer/Armor3").empty()
+	if armor != null:		
+		get_node("HUD/Bg/CurrentArmor").texture = globals.items_available[current_armor.num]["texture"]
+		
+		if armor.durability >= 1:
+			get_node("HUD/Bg/ArmorContainer/Armor1").fill()
+		if armor.durability >= 2:
+			get_node("HUD/Bg/ArmorContainer/Armor2").fill()
+		if armor.durability >= 3:
+			get_node("HUD/Bg/ArmorContainer/Armor3").fill()
+	else:
+		get_node("HUD/Bg/CurrentArmor").texture = null
 		
 		
 		
@@ -481,35 +474,35 @@ func mark_valid_zombies():
 	
 
 func _on_WalkButton_pressed():
-	get_node("HUD/WalkButton").set_disabled(true)
-	get_node("HUD/AttackButton").set_disabled(false)
+	get_node("HUD/Bg/WalkButton").set_disabled(true)
+	get_node("HUD/Bg/AttackButton").set_disabled(false)
 	current_action = ACTION_WALK
 	unmark_all_zombies()
 	draw_valid_squares()
 
 
 func _on_AttackButton_pressed():
-	get_node("HUD/AttackButton").set_disabled(true)
-	get_node("HUD/WalkButton").set_disabled(false)
+	get_node("HUD/Bg/AttackButton").set_disabled(true)
+	get_node("HUD/Bg/WalkButton").set_disabled(false)
 	current_action = ACTION_ATTACK
 	hide_all_squares()
 	mark_valid_zombies()
 
 func update_lives():
 	if hero.lives >0:
-		get_node("HUD/Life1").fill()
+		get_node("HUD/Bg/LifeContainer/Life1").fill()
 	else:
-		get_node("HUD/Life1").empty()
+		get_node("HUD/Bg/LifeContainer/Life1").empty()
 	
 	if hero.lives >1:
-		get_node("HUD/Life2").fill()
+		get_node("HUD/Bg/LifeContainer/Life2").fill()
 	else:
-		get_node("HUD/Life2").empty()
+		get_node("HUD/Bg/LifeContainer/Life2").empty()
 		
 	if hero.lives >2:
-		get_node("HUD/Life3").fill()
+		get_node("HUD/Bg/LifeContainer/Life3").fill()
 	else:
-		get_node("HUD/Life3").empty()
+		get_node("HUD/Bg/LifeContainer/Life3").empty()
 		
 func damage_zombie():
 	var attack_power = 1
@@ -576,3 +569,7 @@ func story_closed():
 	if mode == MODE_END:
 		get_tree().change_scene("res://MainMenu.tscn")
 	
+
+
+func _on_SkipButton_pressed():
+	finish_action()

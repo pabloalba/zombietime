@@ -1,6 +1,7 @@
 extends Node
 
 var hero = 0
+var hero_names = ["Pablo", "Xenia"]
 
 const TYPE_WEAPON = 0
 const TYPE_ARMOR = 1
