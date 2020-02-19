@@ -7,10 +7,10 @@ var texture_done = preload("res://assets/img/select_level/marker_done.png")
 
 func _ready():
 	get_node("Label").text = str(num_level)
-	if globals.max_level > num_level:
+	if globals.settings.max_level > num_level:
 		icon = texture_done
 		show()
-	elif globals.max_level == num_level:
+	elif globals.settings.max_level == num_level:
 		icon = texture_current
 		show()
 	else:

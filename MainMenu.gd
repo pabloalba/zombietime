@@ -5,9 +5,7 @@ extends ColorRect
 # var b = "textvar"
 
 func _ready():
-	# Called every time the node is added to the scene.
-	# Initialization here
-	pass
+	globals.load_settings()
 
 #func _process(delta):
 #	# Called every frame. Delta is time since last frame.
@@ -24,5 +22,7 @@ func _on_options_pressed():
 
 
 func _on_new_game_pressed():
-	globals.max_level = 1
+	globals.settings.max_level = 1
+	globals.settings.tips_shown.empty()
+	globals.save_settings()
 	get_tree().change_scene("res://SelectLevel.tscn")

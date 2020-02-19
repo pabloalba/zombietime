@@ -45,6 +45,7 @@ var zombies = []
 var spawn_points = []
 var search_points = []
 
+
 var is_search_action = false
 
 var music = load("res://assets/sound/music.ogg")
@@ -52,47 +53,38 @@ var music = load("res://assets/sound/music.ogg")
 
 var tips = {
 	"movement": {
-		"alreadyShown": false,
 		"text": "You have three actions\nevery turn. Use your first\naction to move one square",
 		"texture": preload("res://assets/img/play/hud/walk.png")
 	},
 	"attack": {
-		"alreadyShown": false,
 		"text": "Now you can use one\naction to attack and\nkill a zombie.",
 		"texture": fist_texture
 	},
 	"noweapon": {
-		"alreadyShown": false,
 		"text": "Attacking a zombie without\na weapon is dangerous.\nYou have killed it,\nbut you got hurt!",
 		"texture": preload("res://assets/img/play/tips/hearts.png")
 	},
 	"zombietime": {
-		"alreadyShown": false,
 		"text": "When you have done\nall three actions, it's\nZombie Time!\nThe zombies will move\nAnd hit you if they are close",
 		"texture": null
 	},
 	"searcheable": {
-		"alreadyShown": false,
 		"text": "If a tile has the \"searcheable\"\n icon, you can use an action to\nsearch and find an item",
 		"texture": preload("res://assets/img/play/searcheable.png")
 	},
 	"inventory": {
-		"alreadyShown": false,
 		"text": "This is the inventory screen.\nIn it you can equip, unequip and\ndiscard your weapons and armor",
 		"texture": preload("res://assets/img/play/hud/inventory.png")
 	},
 	"armor": {
-		"alreadyShown": false,
 		"text": "If you receive damage with\nan armor equiped, the armor will\ntake the damage instead\nof you (until it's destroyed)",
 		"texture": preload("res://assets/img/play/tips/armor.png")
 	},
 	"skip": {
-		"alreadyShown": false,
 		"text": "Sometimes it's better to\nskip an action than to end your\nturn on a dangerous position",
 		"texture": preload("res://assets/img/play/hud/skip.png")
 	},
 	"weapon": {
-		"alreadyShown": false,
 		"text": "You can use a weapon a limited\nnumber of times. With some\nweapons you can attack from\nafar, and some weapons\ncan kill more than one zombie\n with one hit",
 		"texture": null
 	}
@@ -121,7 +113,7 @@ func _ready():
 func reset_map():
 	inventory_screen.empty()
 	
-	map = load("res://levels/level" + str(globals.savegame.current_level) + ".tscn").instance()
+	map = load("res://levels/level" + str(globals.settings.current_level) + ".tscn").instance()
 	add_child(map)
 	get_node("HUD/StoryScreen").set_title(map.story_title)
 	get_node("HUD/StoryScreen").set_text(map.story_text)
@@ -211,12 +203,12 @@ func finish_action():
 			finish_action_no_tips()
 
 func check_tips():	
-	if globals.show_tips and tip != null:
-		var tip_info = tips[tip]		
-		if not tip_info["alreadyShown"]:
-			tip_info["alreadyShown"] = true
-			show_tip(tip_info["text"], tip_info["texture"])			
-			return true
+	if tip != null and not globals.settings.tips_shown.has(tip):
+		var tip_info = tips[tip]
+		globals.settings.tips_shown.append(tip)
+		globals.save_settings()
+		show_tip(tip_info["text"], tip_info["texture"])
+		return true
 	return false
 			
 func show_tip(text, texture):
@@ -249,7 +241,8 @@ func check_end_game():
 			get_node("HUD/StoryScreen").set_text(map.victory_text)
 			get_node("HUD/StoryScreen").show()
 			mode = MODE_END
-			globals.max_level += 1
+			globals.settings.max_level += 1
+			globals.save_settings()
 			return true
 		else:
 			return false
@@ -698,20 +691,19 @@ func _on_SkipButton_pressed():
 	finish_action()
 	
 func set_tip(t):
-	var tip_info = tips[t]		
-	if not tip_info["alreadyShown"]:
+	if not globals.settings.tips_shown.has(t):
 		tip = t
 
 func _on_Options_pressed():
 	get_node("HUD/OptionsScreen").show()
 
 func start_music():
-	if globals.music:
+	if globals.settings.music:
 		get_node("Music").stream = music
 		get_node("Music").play(0)
 		
 func start_stop_music():
-	if globals.music:
+	if globals.settings.music:
 		start_music()
 	else:
 		get_node("Music").stop()

@@ -12,6 +12,6 @@ func _ready():
 
 
 func select_level(num_level):
-	globals.savegame.current_level = num_level - 1
+	globals.settings.current_level = num_level - 1
 	get_tree().change_scene("res://SelectHero.tscn")
 	

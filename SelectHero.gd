@@ -11,7 +11,7 @@ var texture_heroes = [
 
 func _ready():
 	for i in range(6):
-		if globals.savegame.heroes_enabled[i]:
+		if globals.settings.heroes_enabled[i]:
 			get_node("MarginContainer/VBoxContainer/CenterContainer2/GridContainer").get_child(i).set_texture(texture_heroes[i])
 
 #func _process(delta):
@@ -25,6 +25,6 @@ func _on_hero_gui_input( ev, num ):
 	if ev is InputEventMouseButton:
 		if ev.button_index == BUTTON_LEFT:
 			if ev.pressed:
-				if globals.savegame.heroes_enabled[num]:
+				if globals.settings.heroes_enabled[num]:
 					globals.hero = num
 					get_tree().change_scene("res://Main.tscn")

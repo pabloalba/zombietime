@@ -1,10 +1,8 @@
 extends Node
 
+var version = 0.1
 var hero = 0
 var hero_names = ["Pablo", "Xenia"]
-
-var music = true
-var sound = true
 
 const TYPE_WEAPON = 0
 const TYPE_ARMOR = 1
@@ -37,8 +35,8 @@ const TILE_AXE = 321
 const TILE_BAT = 322
 const TILE_HOCKEY = 334
 
-var max_level = 2
-var show_tips = true
+
+
 
 
 
@@ -172,10 +170,46 @@ var items_available = [
 	}
 ]
 
-var savegame = {
-	"current_level": 0,
-	"heroes_enabled": [true, false, false, false, false, false]
+
+# Default settings
+var settings = {
+	"version": version,
+	"heroes_enabled": [true, false, false, false, false, false],
+	"music": true,
+	"sound": true,
+	"max_level": 1,
+	"tips_shown": []
 }
+
+
+func save_settings():
+	print ("saving settings...")
+	print(settings)
+	var save_game = File.new()
+	if save_game.open(str("user://zombietime.save"), File.WRITE) == OK: # If the opening of the save file returns OK	
+		save_game.store_var(globals.settings) # then we store the contents of the var save inside it
+		save_game.close() # and we gracefully close the file :)
+		print ("saving game ok!")
+
+func load_settings():
+	print ("saving settings...")
+	
+	var save_game = File.new() # We initialize the File class
+	var loaded = false
+	if save_game.open(str("user://zombietime.save"), File.READ_WRITE) == OK: # If the opening of the save file returns OK
+		var temp_d # we create a temporary var to hold the contents of the save file
+		temp_d = save_game.get_var() # we get the contents of the save file and store it on TEMP_D
+		save_game.close()
+		
+		if "version" in temp_d and temp_d["version"] == version:
+			settings = temp_d
+			loaded = true
+			print(settings)
+
+	if not loaded:
+		print("creating new settings")
+		save_settings()	
+
 
 var gameover_text = """
 [center]Your adventure finish here...

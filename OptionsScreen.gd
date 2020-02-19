@@ -8,12 +8,12 @@ func _ready():
 	update_buttons()
 	
 func update_buttons():
-	if globals.music:
+	if globals.settings.music:
 		get_node("VBoxContainer/Music").text = "Music ON"
 	else:
 		get_node("VBoxContainer/Music").text = "Music OFF"
 		
-	if globals.sound:
+	if globals.settings.sound:
 		get_node("VBoxContainer/Sound").text = "Sound ON"
 	else:
 		get_node("VBoxContainer/Sound").text = "Sound OFF"
@@ -24,13 +24,15 @@ func _on_Close_pressed():
 
 
 func _on_Music_pressed():
-	globals.music = not globals.music
+	globals.settings.music = not globals.settings.music
+	globals.save_settings()
 	update_buttons()
 	emit_signal("start_stop_music")
 
 
 func _on_Sound_pressed():
-	globals.sound = not globals.sound
+	globals.settings.sound = not globals.settings.sound
+	globals.save_settings()
 	update_buttons()
 
 
