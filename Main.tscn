@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://levels/main.gd" type="Script" id=1]
 [ext_resource path="res://Hero.tscn" type="PackedScene" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://assets/img/play/hud/background.png" type="Texture" id=4]
 [ext_resource path="res://Armor.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Life.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Tips.tscn" type="PackedScene" id=7]
 [ext_resource path="res://assets/img/play/hud/walk.png" type="Texture" id=8]
 [ext_resource path="res://assets/img/play/hud/walk_selected.png" type="Texture" id=9]
 [ext_resource path="res://assets/img/play/hud/weapon.png" type="Texture" id=10]
@@ -20,10 +21,11 @@
 [ext_resource path="res://InventoryScreen.tscn" type="PackedScene" id=19]
 [ext_resource path="res://SearchScreen.tscn" type="PackedScene" id=20]
 [ext_resource path="res://StoryScreen.tscn" type="PackedScene" id=21]
-[ext_resource path="res://Tutorial.tscn" type="PackedScene" id=22]
+[ext_resource path="res://OptionsScreen.tscn" type="PackedScene" id=22]
 [ext_resource path="res://assets/img/play/hud/skip.png" type="Texture" id=23]
 [ext_resource path="res://assets/img/hero/hero0.png" type="Texture" id=24]
 [ext_resource path="res://assets/fonts/zombiecontrol.ttf" type="DynamicFontData" id=25]
+[ext_resource path="res://assets/img/play/hud/options.png" type="Texture" id=26]
 
 [sub_resource type="DynamicFont" id=1]
 size = 56
@@ -176,9 +178,9 @@ __meta__ = {
 
 [node name="ArmorContainer" type="HBoxContainer" parent="HUD/Bg"]
 margin_left = 118.0
-margin_top = 103.0
+margin_top = 146.0
 margin_right = 263.0
-margin_bottom = 153.0
+margin_bottom = 196.0
 alignment = 1
 __meta__ = {
 "_edit_use_anchors_": false
@@ -201,9 +203,9 @@ margin_bottom = 50.0
 
 [node name="LifeContainer" type="HBoxContainer" parent="HUD/Bg"]
 margin_left = 118.0
-margin_top = 146.0
+margin_top = 103.0
 margin_right = 263.0
-margin_bottom = 196.0
+margin_bottom = 153.0
 alignment = 1
 __meta__ = {
 "_edit_use_anchors_": false
@@ -250,7 +252,7 @@ margin_top = 268.0
 margin_right = 156.0
 margin_bottom = 327.0
 custom_fonts/font = SubResource( 1 )
-custom_colors/font_color = Color( 0.290196, 0.054902, 0.054902, 1 )
+custom_colors/font_color = Color( 0.889648, 0.0347519, 0.0347519, 1 )
 text = "3"
 align = 1
 valign = 1
@@ -290,11 +292,17 @@ text = "Zombie Time!"
 align = 1
 valign = 1
 
-[node name="InventoryScreen" parent="HUD" instance=ExtResource( 19 )]
-visible = false
-
-[node name="SearchScreen" parent="HUD" instance=ExtResource( 20 )]
-visible = false
+[node name="Options" type="Button" parent="HUD"]
+margin_left = 1145.84
+margin_top = 589.448
+margin_right = 1285.84
+margin_bottom = 723.448
+rect_scale = Vector2( 0.8, 0.8 )
+icon = ExtResource( 26 )
+flat = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="HitIndicator" type="ColorRect" parent="HUD"]
 visible = false
@@ -302,11 +310,24 @@ margin_right = 1280.0
 margin_bottom = 720.0
 color = Color( 1, 0, 0, 0.392157 )
 
-[node name="StoryScreen" parent="HUD" instance=ExtResource( 21 )]
+[node name="InventoryScreen" parent="HUD" instance=ExtResource( 19 )]
 visible = false
 
-[node name="Tutorial" parent="HUD" instance=ExtResource( 22 )]
+[node name="SearchScreen" parent="HUD" instance=ExtResource( 20 )]
 visible = false
+
+[node name="StoryScreen" parent="HUD" instance=ExtResource( 21 )]
+
+[node name="Tips" parent="HUD" instance=ExtResource( 7 )]
+visible = false
+margin_top = -1.0
+margin_right = 1280.0
+margin_bottom = 719.0
+
+[node name="OptionsScreen" parent="HUD" instance=ExtResource( 22 )]
+visible = false
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
 [connection signal="gui_input" from="Hero/canMoveStay" to="." method="_on_canMove_gui_input" binds= [ 4 ]]
 [connection signal="gui_input" from="Hero/canMoveUp" to="." method="_on_canMove_gui_input" binds= [ 0 ]]
 [connection signal="gui_input" from="Hero/canMoveDown" to="." method="_on_canMove_gui_input" binds= [ 2 ]]
@@ -317,3 +338,4 @@ visible = false
 [connection signal="pressed" from="HUD/Bg/SearchButton" to="." method="_on_SearchButton_pressed"]
 [connection signal="pressed" from="HUD/Bg/SkipButton" to="." method="_on_SkipButton_pressed"]
 [connection signal="pressed" from="HUD/Bg/InventoryButton" to="." method="_on_InventoryButton_pressed"]
+[connection signal="pressed" from="HUD/Options" to="." method="_on_Options_pressed"]

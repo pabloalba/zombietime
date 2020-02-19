@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/fist.ogg-b517c71a2e0749dffd54045b0003e1a1.oggstr"
+
+[deps]
+
+source_file="res://assets/sound/fist.ogg"
+dest_files=[ "res://.import/fist.ogg-b517c71a2e0749dffd54045b0003e1a1.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

@@ -10,7 +10,7 @@ func set_title(txt):
 	get_node("Title").text = txt
 
 func set_text(txt):
-	get_node("Text").text = txt
+	get_node("Text").bbcode_text = "[center]"+txt+"[/center]"
 	
 
 func _on_Start_pressed():

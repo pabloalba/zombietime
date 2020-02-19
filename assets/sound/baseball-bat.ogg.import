@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/baseball-bat.ogg-1877d025f597d132cc029dcbedcda15c.oggstr"
+
+[deps]
+
+source_file="res://assets/sound/baseball-bat.ogg"
+dest_files=[ "res://.import/baseball-bat.ogg-1877d025f597d132cc029dcbedcda15c.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

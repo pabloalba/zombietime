@@ -3,6 +3,9 @@ extends Node
 var hero = 0
 var hero_names = ["Pablo", "Xenia"]
 
+var music = true
+var sound = true
+
 const TYPE_WEAPON = 0
 const TYPE_ARMOR = 1
 const TYPE_USEABLE = 2
@@ -18,13 +21,24 @@ const ITEM_JACKET = 3
 const ITEM_RIOT_GEAR = 4
 const ITEM_RIFLE = 5
 const ITEM_CROWBAR = 6
+const ITEM_AXE = 7
+const ITEM_BAT = 8
 
 const TILE_HERO_START = 307
 const TILE_TARGET = 297
 const TILE_ZOMBIE_1 = 336
 const TILE_ZOMBIE_2 = 337
 const TILE_ZOMBIE_3 = 338
+const TILE_GUN = 324
+
 const TILE_KNIFE = 326
+const TILE_JACKET = 327
+const TILE_AXE = 321
+const TILE_BAT = 322
+const TILE_HOCKEY = 334
+
+var max_level = 2
+var show_tips = true
 
 
 
@@ -67,7 +81,7 @@ var texture_shield = [
 
 var items_available = [
 	{
-		"title": "knife"	,
+		"title": "Knife"	,
 		"description": "Stabs. Cut. Kill zombies.",
 		"texture": preload("res://assets/img/play/hud/items/knife.png"),
 		"power": 2,
@@ -77,7 +91,7 @@ var items_available = [
 		"subtype": SUBTYPE_BLADE
 	},
 	{
-		"title": "gun",
+		"title": "Gun",
 		"description": "Pew, pew",
 		"texture": preload("res://assets/img/play/hud/items/gun.png"),
 		"power": 1,
@@ -135,6 +149,26 @@ var items_available = [
 		"weapon_range": 1,
 		"type": TYPE_WEAPON,
 		"subtype": SUBTYPE_BLUNT
+	},
+	{
+		"title": "Axe"	,
+		"description": "Chops trees and zombie heads",
+		"texture": preload("res://assets/img/play/hud/items/axe.png"),
+		"power": 5,
+		"durability": 3,
+		"weapon_range": 1,
+		"type": TYPE_WEAPON,
+		"subtype": SUBTYPE_BLADE
+	},
+	{
+		"title": "Baseball bat",
+		"description": "Twinkle, twinkle little\nbat How I wonder\nwhat you're at!",
+		"texture": preload("res://assets/img/play/hud/items/bat.png"),
+		"power": 2,
+		"durability": 3,
+		"weapon_range": 1,
+		"type": TYPE_WEAPON,
+		"subtype": SUBTYPE_BLUNT
 	}
 ]
 
@@ -144,8 +178,10 @@ var savegame = {
 }
 
 var gameover_text = """
-Your adventure finish here...
+[center]Your adventure finish here...
 But maybe there are more survivors to
-continue the fight!
+continue the fight![/center]
 """
-	
+
+
+

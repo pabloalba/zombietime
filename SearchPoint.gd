@@ -7,7 +7,7 @@ func _ready():
 	pass # Replace with function body.
 
 func set_square(x, y):
-	rect_position.x = 256 * x + 190
-	rect_position.y = 256 * y + 25
+	rect_position.x = 256 * x + 155
+	rect_position.y = 256 * y
 	square.x = x
 	square.y = y

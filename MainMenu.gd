@@ -16,7 +16,7 @@ func _ready():
 
 
 func _on_continue_pressed():
-	get_tree().change_scene("res://SelectHero.tscn")
+	get_tree().change_scene("res://SelectLevel.tscn")
 
 
 func _on_options_pressed():
@@ -24,5 +24,5 @@ func _on_options_pressed():
 
 
 func _on_new_game_pressed():
-	globals.savegame.current_level = 0
-	get_tree().change_scene("res://SelectHero.tscn")
+	globals.max_level = 1
+	get_tree().change_scene("res://SelectLevel.tscn")

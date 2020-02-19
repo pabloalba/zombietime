@@ -1,0 +1,94 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Font48.tres" type="DynamicFont" id=1]
+[ext_resource path="res://Font96.tres" type="DynamicFont" id=2]
+[ext_resource path="res://assets/img/play/hud/close.png" type="Texture" id=3]
+[ext_resource path="res://assets/img/play/hud/story_screen.png" type="Texture" id=4]
+[ext_resource path="res://OptionsScreen.gd" type="Script" id=5]
+
+[node name="OptionsScreen" type="TextureRect"]
+margin_left = 1.43198
+margin_right = 1281.43
+margin_bottom = 722.789
+texture = ExtResource( 4 )
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="Label" parent="."]
+margin_left = 122.0
+margin_top = 75.0
+margin_right = 1414.0
+margin_bottom = 126.0
+rect_scale = Vector2( 0.8, 0.8 )
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0.501961, 0, 0, 1 )
+text = "options"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Close" type="Button" parent="."]
+margin_left = 998.871
+margin_top = 3.33672
+margin_right = 1138.87
+margin_bottom = 137.337
+rect_scale = Vector2( 0.6, 0.6 )
+custom_fonts/font = ExtResource( 1 )
+icon = ExtResource( 3 )
+flat = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_left = 241.0
+margin_top = 200.0
+margin_right = 1044.0
+margin_bottom = 587.0
+custom_constants/separation = 50
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Music" type="Button" parent="VBoxContainer"]
+margin_right = 803.0
+margin_bottom = 57.0
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "music on"
+flat = true
+
+[node name="Sound" type="Button" parent="VBoxContainer"]
+margin_top = 107.0
+margin_right = 803.0
+margin_bottom = 164.0
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "sound on"
+flat = true
+
+[node name="Restart" type="Button" parent="VBoxContainer"]
+margin_top = 214.0
+margin_right = 803.0
+margin_bottom = 271.0
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "restart level"
+flat = true
+
+[node name="Exit" type="Button" parent="VBoxContainer"]
+margin_top = 321.0
+margin_right = 803.0
+margin_bottom = 378.0
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "exit to main menu"
+flat = true
+[connection signal="pressed" from="Close" to="." method="_on_Close_pressed"]
+[connection signal="pressed" from="VBoxContainer/Music" to="." method="_on_Music_pressed"]
+[connection signal="pressed" from="VBoxContainer/Sound" to="." method="_on_Sound_pressed"]
+[connection signal="pressed" from="VBoxContainer/Restart" to="." method="_on_Restart_pressed"]
+[connection signal="pressed" from="VBoxContainer/Exit" to="." method="_on_Exit_pressed"]

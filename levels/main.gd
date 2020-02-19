@@ -12,6 +12,7 @@ const MODE_PLAYER_ACTION = 1
 const MODE_PLAYER_ANIMATION = 2
 const MODE_ZOMBIE_TIME = 3
 const MODE_END = 4
+const MODE_TIP = 5
 
 const ACTION_WALK = 0
 const ACTION_ATTACK = 1
@@ -44,14 +45,77 @@ var zombies = []
 var spawn_points = []
 var search_points = []
 
+var is_search_action = false
+
+var music = load("res://assets/sound/music.ogg")
+
+
+var tips = {
+	"movement": {
+		"alreadyShown": false,
+		"text": "You have three actions\nevery turn. Use your first\naction to move one square",
+		"texture": preload("res://assets/img/play/hud/walk.png")
+	},
+	"attack": {
+		"alreadyShown": false,
+		"text": "Now you can use one\naction to attack and\nkill a zombie.",
+		"texture": fist_texture
+	},
+	"noweapon": {
+		"alreadyShown": false,
+		"text": "Attacking a zombie without\na weapon is dangerous.\nYou have killed it,\nbut you got hurt!",
+		"texture": preload("res://assets/img/play/tips/hearts.png")
+	},
+	"zombietime": {
+		"alreadyShown": false,
+		"text": "When you have done\nall three actions, it's\nZombie Time!\nThe zombies will move\nAnd hit you if they are close",
+		"texture": null
+	},
+	"searcheable": {
+		"alreadyShown": false,
+		"text": "If a tile has the \"searcheable\"\n icon, you can use an action to\nsearch and find an item",
+		"texture": preload("res://assets/img/play/searcheable.png")
+	},
+	"inventory": {
+		"alreadyShown": false,
+		"text": "This is the inventory screen.\nIn it you can equip, unequip and\ndiscard your weapons and armor",
+		"texture": preload("res://assets/img/play/hud/inventory.png")
+	},
+	"armor": {
+		"alreadyShown": false,
+		"text": "If you receive damage with\nan armor equiped, the armor will\ntake the damage instead\nof you (until it's destroyed)",
+		"texture": preload("res://assets/img/play/tips/armor.png")
+	},
+	"skip": {
+		"alreadyShown": false,
+		"text": "Sometimes it's better to\nskip an action than to end your\nturn on a dangerous position",
+		"texture": preload("res://assets/img/play/hud/skip.png")
+	},
+	"weapon": {
+		"alreadyShown": false,
+		"text": "You can use a weapon a limited\nnumber of times. With some\nweapons you can attack from\nafar, and some weapons\ncan kill more than one zombie\n with one hit",
+		"texture": null
+	}
+}
+
+var tip = "movement"
+
 func _ready():
-	inventory_screen = get_node("HUD/InventoryScreen")	
+	inventory_screen = get_node("HUD/InventoryScreen")
+	get_node("HUD/InventoryScreen").connect("inventory_screen_closed", self, "inventory_screen_closed")
 	inventory_screen.main_scene = self
 		
 	get_node("HUD/SearchScreen").connect("take_item", self, "take_item")
 	get_node("HUD/SearchScreen").connect("discard_item", self, "discard_item")
 	
 	get_node("HUD/StoryScreen").connect("story_closed", self, "story_closed")
+	get_node("HUD/Tips").connect("tip_closed", self, "finish_action_no_tips")
+	get_node("HUD/OptionsScreen").connect("restart", self, "reset_map")
+	get_node("HUD/OptionsScreen").connect("start_stop_music", self, "start_stop_music")
+	
+	#loop
+	get_node("Music").connect("finished", self, "start_music")
+	
 	reset_map()
 	
 func reset_map():
@@ -92,14 +156,24 @@ func reset_map():
 		var content = characters.get_cell(tile.x, tile.y)
 		if content == globals.TILE_HERO_START:
 			hero.set_square(tile.x, tile.y)
-		elif content == globals.TILE_ZOMBIE_1 or content == globals.TILE_ZOMBIE_2 or content == globals.TILE_ZOMBIE_3:
+		elif content == globals.TILE_ZOMBIE_1:
 			add_zombie(tile.x, tile.y)
+		elif content == globals.TILE_ZOMBIE_2:
+			add_zombie(tile.x, tile.y)
+			add_zombie(tile.x, tile.y)
+		elif content == globals.TILE_ZOMBIE_3:
+			add_zombie(tile.x, tile.y)
+			add_zombie(tile.x, tile.y)
+			add_zombie(tile.x, tile.y)
+	join_zombies()
 	characters.visible = false
 	
 	_on_WalkButton_pressed()
 	update_weapon(null)
 	update_armor(null)
 	_update_search_button()
+	start_music()
+	new_turn()
 	
 #	inventory_screen.add_item(globals.ITEM_GUN)
 #	inventory_screen.add_item(globals.ITEM_KNIFE)
@@ -127,15 +201,38 @@ func _process(delta):
 					
 func finish_action():
 	hero.num_actions -= 1
+	if hero.num_actions == 0 and tip == null:
+		set_tip("zombietime")
 	get_node("HUD/Bg/LabelActions").text = str(hero.num_actions)
 	_update_search_button()
 	var is_end_game = check_end_game()
 	if not is_end_game:
-		if (hero.num_actions == 0):
-			zombie_time()
-		else:
-			mode = MODE_PLAYER_ACTION
-			draw_valid_squares()
+		if not check_tips():
+			finish_action_no_tips()
+
+func check_tips():	
+	if globals.show_tips and tip != null:
+		var tip_info = tips[tip]		
+		if not tip_info["alreadyShown"]:
+			tip_info["alreadyShown"] = true
+			show_tip(tip_info["text"], tip_info["texture"])			
+			return true
+	return false
+			
+func show_tip(text, texture):
+	mode = MODE_TIP
+	get_node("HUD/Tips").set_info(text, texture)
+	get_node("HUD/Tips").show()
+			
+func finish_action_no_tips():
+	print("finish_action_no_tips")
+	tip = null
+	if (hero.num_actions == 0):
+		zombie_time()
+	else:
+		mode = MODE_PLAYER_ACTION
+		print("Mode: "+str(mode))
+		draw_valid_squares()
 
 func check_end_game():
 	var is_dead = check_death()
@@ -152,7 +249,7 @@ func check_end_game():
 			get_node("HUD/StoryScreen").set_text(map.victory_text)
 			get_node("HUD/StoryScreen").show()
 			mode = MODE_END
-			globals.savegame.current_level += 1
+			globals.max_level += 1
 			return true
 		else:
 			return false
@@ -263,10 +360,13 @@ func _move_hero(direction):
 		mode = MODE_PLAYER_ANIMATION
 		hide_all_squares()		
 		hero.set_desired_square(desired_square.x, desired_square.y)
+		set_tip("attack")
 		
 func attack_zombie(zombie):
 	if current_action == ACTION_ATTACK:	
 		hero_start_attack(zombie)
+		if current_weapon != null:
+			set_tip("weapon")
 	
 func hero_start_attack(zombie):
 	print("hero_start_attack", hero.num_actions, hero.mode)
@@ -310,6 +410,7 @@ func _update_search_button():
 		get_node("HUD/Bg/SearchButton").set_disabled(true)
 	else:
 		get_node("HUD/Bg/SearchButton").set_disabled(false)
+		set_tip("searcheable")
 		
 func _get_search_item():
 	return map.get_node("search").get_cell(hero.square.x, hero.square.y)
@@ -408,10 +509,8 @@ func move_zombie(zombie):
 
 func zombie_hit(zombie, x, y):
 	zombie.melee_hit(x, y)
-	if current_armor:
-		inventory_screen.update_armor_durability()
-	else:
-		hero.lives -= 1
+	var remaining = inventory_screen.update_armor_durability(zombie.num)
+	hero.lives -= remaining
 	update_lives()
 	
 func is_zombie_time_finished():
@@ -508,8 +607,9 @@ func damage_zombie():
 	var attack_power = 1
 	if current_weapon != null:
 		attack_power = current_weapon.power
-	else:		
-		hero.lives -=1
+	else:
+		var remaining = inventory_screen.update_armor_durability(1)
+		hero.lives -= remaining
 		
 	current_zombie.inc_num(-attack_power)
 	if (current_zombie.num <=0):
@@ -527,6 +627,10 @@ func player_atack_end():
 func player_melee_hit():
 	if current_weapon == null:
 		show_player_damage_effect()
+		if current_armor == null:
+			set_tip("noweapon")
+		else:
+			set_tip("armor")
 	damage_zombie()
 		
 func show_player_damage_effect():
@@ -543,20 +647,30 @@ func _on_canMove_gui_input( ev, direction ):
 
 
 func _on_InventoryButton_pressed():
+	set_tip("inventory")
+	check_tips()
 	inventory_screen.show()
 
 
 func _on_SearchButton_pressed():
+	is_search_action = true
 	var current_tile_item = _get_search_item()
 	get_node("HUD/SearchScreen").set_item(current_tile_item)
 	get_node("HUD/SearchScreen").show()
+	
 
-func take_item(item_num):
-	discard_item()
+func take_item(item_num):	
+	remove_search_icon()
 	inventory_screen.add_item(item_num)
 	inventory_screen.show()
+	if item_num == globals.ITEM_KNIFE:
+		set_tip("skip")
+	else:
+		set_tip("inventory")
+		check_tips()
 	
-func discard_item():
+	
+func remove_search_icon():
 	map.get_node("search").set_cell(hero.square.x, hero.square.y, -1)
 	for search_point in search_points:
 		if search_point.square.x == hero.square.x and search_point.square.y == hero.square.y:
@@ -565,11 +679,41 @@ func discard_item():
 			break
 	_update_search_button()
 	
+func discard_item():
+	remove_search_icon()
+	finish_action()
+	
 func story_closed():
 	if mode == MODE_END:
-		get_tree().change_scene("res://MainMenu.tscn")
+		get_tree().change_scene("res://SelectLevel.tscn")
+	else:
+		check_tips()
 	
-
-
+func inventory_screen_closed():
+	if is_search_action:
+		is_search_action = false
+		finish_action()
+		
 func _on_SkipButton_pressed():
 	finish_action()
+	
+func set_tip(t):
+	var tip_info = tips[t]		
+	if not tip_info["alreadyShown"]:
+		tip = t
+
+func _on_Options_pressed():
+	get_node("HUD/OptionsScreen").show()
+
+func start_music():
+	if globals.music:
+		get_node("Music").stream = music
+		get_node("Music").play(0)
+		
+func start_stop_music():
+	if globals.music:
+		start_music()
+	else:
+		get_node("Music").stop()
+		
+		

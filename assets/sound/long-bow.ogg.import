@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/long-bow.ogg-3350d66b068b310ac37b375995651ddf.oggstr"
+
+[deps]
+
+source_file="res://assets/sound/long-bow.ogg"
+dest_files=[ "res://.import/long-bow.ogg-3350d66b068b310ac37b375995651ddf.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

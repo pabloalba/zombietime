@@ -1,0 +1,154 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://assets/img/select_level/map.jpeg" type="Texture" id=1]
+[ext_resource path="res://MapMarker.tscn" type="PackedScene" id=2]
+[ext_resource path="res://SelectLevel.gd" type="Script" id=3]
+
+[node name="SelectLevel" type="TextureRect"]
+margin_right = 40.0
+margin_bottom = 40.0
+texture = ExtResource( 1 )
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MapMarker" parent="." instance=ExtResource( 2 )]
+margin_left = 216.245
+margin_top = 334.036
+margin_right = 266.245
+margin_bottom = 396.036
+num_level = 1
+
+[node name="MapMarker2" parent="." instance=ExtResource( 2 )]
+margin_left = 247.89
+margin_top = 249.648
+margin_right = 297.89
+margin_bottom = 311.648
+num_level = 2
+
+[node name="MapMarker3" parent="." instance=ExtResource( 2 )]
+margin_left = 356.891
+margin_top = 244.374
+margin_right = 406.891
+margin_bottom = 306.374
+num_level = 3
+
+[node name="MapMarker4" parent="." instance=ExtResource( 2 )]
+margin_left = 411.392
+margin_top = 388.537
+margin_right = 461.392
+margin_bottom = 450.537
+num_level = 4
+
+[node name="MapMarker5" parent="." instance=ExtResource( 2 )]
+margin_left = 501.055
+margin_top = 453.586
+margin_right = 551.055
+margin_bottom = 515.586
+num_level = 5
+
+[node name="MapMarker6" parent="." instance=ExtResource( 2 )]
+margin_left = 611.814
+margin_top = 479.958
+margin_right = 661.814
+margin_bottom = 541.958
+num_level = 6
+
+[node name="MapMarker7" parent="." instance=ExtResource( 2 )]
+margin_left = 747.187
+margin_top = 520.394
+margin_right = 797.187
+margin_bottom = 582.394
+num_level = 7
+
+[node name="MapMarker8" parent="." instance=ExtResource( 2 )]
+margin_left = 729.606
+margin_top = 339.311
+margin_right = 779.606
+margin_bottom = 401.311
+num_level = 8
+
+[node name="MapMarker9" parent="." instance=ExtResource( 2 )]
+margin_left = 613.572
+margin_top = 218.003
+margin_right = 663.572
+margin_bottom = 280.003
+num_level = 9
+
+[node name="MapMarker10" parent="." instance=ExtResource( 2 )]
+margin_left = 620.604
+margin_top = 79.114
+margin_right = 670.604
+margin_bottom = 141.114
+num_level = 10
+
+[node name="MapMarker11" parent="." instance=ExtResource( 2 )]
+margin_left = 755.977
+margin_top = 89.6625
+margin_right = 805.977
+margin_bottom = 151.662
+num_level = 11
+
+[node name="MapMarker12" parent="." instance=ExtResource( 2 )]
+margin_left = 880.801
+margin_top = 73.8397
+margin_right = 930.801
+margin_bottom = 135.84
+num_level = 12
+
+[node name="MapMarker13" parent="." instance=ExtResource( 2 )]
+margin_left = 870.253
+margin_top = 290.084
+margin_right = 920.253
+margin_bottom = 352.084
+num_level = 13
+
+[node name="MapMarker14" parent="." instance=ExtResource( 2 )]
+margin_left = 959.915
+margin_top = 232.067
+margin_right = 1009.92
+margin_bottom = 294.067
+num_level = 14
+
+[node name="MapMarker15" parent="." instance=ExtResource( 2 )]
+margin_left = 1067.16
+margin_top = 140.647
+margin_right = 1117.16
+margin_bottom = 202.647
+num_level = 15
+
+[node name="MapMarker16" parent="." instance=ExtResource( 2 )]
+margin_left = 1111.11
+margin_top = 270.745
+margin_right = 1161.11
+margin_bottom = 332.745
+num_level = 16
+
+[node name="MapMarker17" parent="." instance=ExtResource( 2 )]
+margin_left = 1067.16
+margin_top = 393.811
+margin_right = 1117.16
+margin_bottom = 455.811
+num_level = 17
+
+[node name="MapMarker18" parent="." instance=ExtResource( 2 )]
+margin_left = 935.302
+margin_top = 444.796
+margin_right = 985.302
+margin_bottom = 506.796
+num_level = 18
+
+[node name="MapMarker19" parent="." instance=ExtResource( 2 )]
+margin_left = 958.157
+margin_top = 523.91
+margin_right = 1008.16
+margin_bottom = 585.91
+num_level = 19
+
+[node name="MapMarker20" parent="." instance=ExtResource( 2 )]
+margin_left = 947.608
+margin_top = 583.685
+margin_right = 997.608
+margin_bottom = 645.685
+num_level = 20

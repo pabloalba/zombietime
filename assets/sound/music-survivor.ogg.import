@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/music-survivor.ogg-6faa9cda9aec7ddbeec7cbd735715ecb.oggstr"
+
+[deps]
+
+source_file="res://assets/sound/music-survivor.ogg"
+dest_files=[ "res://.import/music-survivor.ogg-6faa9cda9aec7ddbeec7cbd735715ecb.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

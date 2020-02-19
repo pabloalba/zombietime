@@ -16,7 +16,8 @@ _global_script_class_icons={
 [application]
 
 config/name="ZombieTime"
-run/main_scene="res://MainMenu.tscn"
+run/main_scene="res://Splash.tscn"
+boot_splash/image="res://assets/img/splash.png"
 config/icon="res://assets/img/menu/zombie.png"
 
 [autoload]
@@ -28,6 +29,7 @@ globals="*res://globals.gd"
 window/size/width=1280
 window/size/height=720
 window/stretch/mode="2d"
+window/stretch/aspect="keep"
 window/handheld/emulate_touchscreen=true
 
 [rendering]

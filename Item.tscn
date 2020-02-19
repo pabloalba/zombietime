@@ -42,27 +42,29 @@ text = "1"
 
 [node name="Range" type="TextureRect" parent="."]
 visible = false
-margin_left = 5.0
-margin_top = 90.0
-margin_right = 45.0
-margin_bottom = 130.0
+margin_left = 95.0
+margin_top = 85.0
+margin_right = 135.0
+margin_bottom = 125.0
 texture = ExtResource( 4 )
 
 [node name="RangeLabel" type="Label" parent="."]
 visible = false
-margin_left = 15.0
-margin_top = 92.0
-margin_right = 55.0
-margin_bottom = 143.0
+margin_left = 105.0
+margin_top = 88.0
+margin_right = 145.0
+margin_bottom = 139.0
 rect_scale = Vector2( 0.5, 0.5 )
 custom_fonts/font = ExtResource( 3 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "1"
 
 [node name="Durability" type="TextureRect" parent="."]
-visible = false
-margin_left = 85.0
+margin_left = 7.0
 margin_top = 80.0
-margin_right = 125.0
+margin_right = 50.0
 margin_bottom = 120.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 [connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
