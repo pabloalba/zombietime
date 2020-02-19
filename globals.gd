@@ -175,10 +175,12 @@ var items_available = [
 var settings = {
 	"version": version,
 	"heroes_enabled": [true, false, false, false, false, false],
+	"heroes_health": [3, 3, 3, 3, 3, 3],
 	"music": true,
 	"sound": true,
 	"max_level": 1,
-	"tips_shown": []
+	"tips_shown": [],
+	"inventory": null
 }
 
 

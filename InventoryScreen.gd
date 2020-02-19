@@ -20,6 +20,8 @@ func _ready():
 	pass
 
 func empty():
+	current_weapon = null
+	current_armor = null
 	for item in inventory:
 		if item != null:
 			remove_child(item)
@@ -42,11 +44,12 @@ func add_item(item_num):
 	var item = create_item(item_num)	
 	if add_item_to_inventory(item):
 		add_child(item)	
+		return item
 		
 func add_item_to_inventory(item):
 	var pos = inventory.find(null)	
 	if pos > -1:
-		inventory[pos] = item			
+		inventory[pos] = item
 		item.position.x = 223 + (((pos % 3)) * 134)
 		item.position.y = 100 + (( pos / 3) * 134)
 		return true
@@ -205,3 +208,54 @@ func update_armor_durability(num):
 			return remaining
 	else:
 		return num
+
+func to_map():
+	var data = {
+		"current_weapon": null,
+		"current_armor": null,
+		"inventory": []
+	}
+	if current_armor:
+		data.current_armor = {
+			"num": current_armor.num,
+			"durability": current_armor.durability
+		}
+	if current_weapon:
+		data.current_weapon = {
+			"num": current_weapon.num,
+			"durability": current_weapon.durability
+		}
+	for item in inventory:
+		if item:
+			data.inventory.append({
+				"num": item.num,
+				"durability": item.durability
+			})
+	return data
+	
+func from_map(data):	
+	empty()
+	if data:
+		var item
+		if data.current_armor:
+			item = add_item(data.current_armor.num)
+			item.durability = data.current_armor.durability
+			current_item = item
+			current_item_pos = 0
+			item.draw_metadata()
+			equip_armor()
+			
+		if data.current_weapon:
+			item = add_item(data.current_weapon.num)
+			item.durability = data.current_weapon.durability
+			current_item = item
+			current_item_pos = 0
+			item.draw_metadata()
+			equip_weapon()
+			
+		for i in data.inventory:
+			item = add_item(i.num)			
+			item.durability = i.durability
+			item.draw_metadata()
+		
+	

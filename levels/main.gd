@@ -1,4 +1,5 @@
 extends Container
+var tips_enabled = false
 var map
 var hero
 
@@ -138,7 +139,7 @@ func reset_map():
 	hero = get_node("Hero")
 	hero.connect("melee_hit", self, "player_melee_hit")
 	hero.connect("atack_end", self, "player_atack_end")
-	hero.lives = 3
+	hero.lives = globals.settings.heroes_health[globals.hero]
 	update_lives()
 	
 	get_node("HUD/Bg/LabelName").text = globals.hero_names[globals.hero]
@@ -164,6 +165,11 @@ func reset_map():
 	update_weapon(null)
 	update_armor(null)
 	_update_search_button()
+	
+	
+	inventory_screen.from_map(globals.settings.inventory)
+	
+	
 	start_music()
 	new_turn()
 	
@@ -203,7 +209,7 @@ func finish_action():
 			finish_action_no_tips()
 
 func check_tips():	
-	if tip != null and not globals.settings.tips_shown.has(tip):
+	if tips_enabled and tip != null and not globals.settings.tips_shown.has(tip):
 		var tip_info = tips[tip]
 		globals.settings.tips_shown.append(tip)
 		globals.save_settings()
@@ -217,14 +223,12 @@ func show_tip(text, texture):
 	get_node("HUD/Tips").show()
 			
 func finish_action_no_tips():
-	print("finish_action_no_tips")
 	tip = null
 	if (hero.num_actions == 0):
 		zombie_time()
-	else:
-		mode = MODE_PLAYER_ACTION
-		print("Mode: "+str(mode))
-		draw_valid_squares()
+	else:		
+		mode = MODE_PLAYER_ACTION		
+		_on_WalkButton_pressed()
 
 func check_end_game():
 	var is_dead = check_death()
@@ -241,12 +245,16 @@ func check_end_game():
 			get_node("HUD/StoryScreen").set_text(map.victory_text)
 			get_node("HUD/StoryScreen").show()
 			mode = MODE_END
-			globals.settings.max_level += 1
-			globals.save_settings()
+			update_end_level_settings()
 			return true
 		else:
 			return false
 		
+func update_end_level_settings():
+	globals.settings.heroes_health[globals.hero] = hero.lives
+	globals.settings.max_level += 1
+	globals.settings.inventory = inventory_screen.to_map()
+	globals.save_settings()
 	
 func check_death():
 	return (hero.lives <= 0)

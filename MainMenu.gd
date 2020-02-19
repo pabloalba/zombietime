@@ -24,5 +24,6 @@ func _on_options_pressed():
 func _on_new_game_pressed():
 	globals.settings.max_level = 1
 	globals.settings.tips_shown.empty()
+	globals.settings.inventory = null
 	globals.save_settings()
 	get_tree().change_scene("res://SelectLevel.tscn")

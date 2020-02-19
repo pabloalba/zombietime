@@ -12,6 +12,7 @@ func _ready():
 
 
 func select_level(num_level):
-	globals.settings.current_level = num_level - 1
-	get_tree().change_scene("res://SelectHero.tscn")
+	if num_level == globals.settings.max_level:
+		globals.settings.current_level = num_level - 1
+		get_tree().change_scene("res://SelectHero.tscn")
 	
